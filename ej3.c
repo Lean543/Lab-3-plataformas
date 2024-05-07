@@ -1,70 +1,118 @@
 #include <stdio.h>
+#include <stdlib.h> 
 
-#define ROWS 5
+int rnum () {
 
-#define COLS 5
+    int value = rand() % 2;
 
-int findlargestsquare (int matrix[ROWS][SIZE]){
+    return value;
+    
+}
 
-    for(int i = 0; i < ROWS; i++) {
 
-        for(int j = 0; j < COLS; j++){
+int findlargestsquare (int** matrix, int n){
 
-            bool finish = false;
+    int i = 0;
 
-            while (finish){
+    int j = 0;
 
-                int counter = 1;
+    int maxsize = 0;
 
-                if (matrix[i][j] == 1){
+    for(i = 0; i < n; i += 1){
 
-                    j += 1;
+        for(j = 0; j < n; j += 1){
 
-                    counter += 1;
+            if (matrix[i][j] == 1){
 
-                else
+                int jcounter = 0;
 
-                    finish = false;
+                int xcounter = 0;
 
+                int cuadrado;
+
+                int r;
+
+                int c;
+
+                for(r = i; r < n; r += 1){
+
+                    xcounter = 0;
+
+                    for(c = j; c < n; c += 1){
+
+                        if (matrix[r][c] == 1){
+
+                            xcounter += 1;
+
+                        }
+
+                    }
+
+                    if (xcounter == jcounter){
+
+                        cuadrado = xcounter;
+
+                    }
+
+                    if (cuadrado > maxsize){
+
+                        maxsize = cuadrado;
+
+                    }
+                
                 }
 
             }
+
         }
     }
 
+    return maxsize;
+
 }
 
-int create_matrix (int n){
-
-    //hacer código
-
-    //utilizar y investigar rand
-
-    /*int matrix[ROWS][COLS] = {
-
-        {0, 1, 1, 1, 0},
-        {0, 1, 1, 1, 1},
-        {1, 1, 1, 1, 0},
-        {0, 1, 1, 0, 1},
-        {1, 0, 1, 0, 1},
-
-    };*/
-
-    return int matrix[ROWS][COLS];
-}
 int main(){
+
+    int i = 0;
+
+    int j = 0;
 
     int n;
 
-    scanf("Ingrese el número de filas de la matriz nxn: %d", n)
+    printf("Ingrese el número de filas de la matriz nxn: ");
 
-    int matrix[ROWS][COLS] = create_matrix(n);
+    scanf("%d", &n);
 
-    int largestsquaresize = findlargestsquare(matrix[ROWS][COLS]);
+    int matrix[n][n];
 
-    //printf("EL tamaño de cuadrado más grande de unos es %d\n"), largestsquaresize);
+    for(i = 0; i < n; i += 1){
+
+        for(j = 0; j < n; j += 1){
+
+            matrix[i][j] = rnum();
+
+        }
+
+    }
+
+    int largestsquaresize = findlargestsquare(matrix, n);
+
+    printf("\nMatriz aleatoria:\n");
+
+    for(i = 0; i < n; i += 1){
+
+        for(j = 0; j < n; j += 1){
+
+            printf("%d ", matrix[i][j]);
+
+        }
+
+        printf("\n");
+
+    }
 
     return 0;
 
+    printf("EL tamaño de cuadrado más grande de unos es %d\n"), &largestsquaresize);
 
 }
