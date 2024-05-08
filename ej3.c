@@ -1,22 +1,22 @@
 #include <stdio.h>
-#include <stdlib.h> 
+#include <stdlib.h>
 
 int rnum () {
 
-    int value = rand() % 2;
+    int valor = rand() % 2;
 
-    return value;
+    return valor;
     
 }
 
 
-int findlargestsquare (int** matrix, int n){
+int findlargestsquare (int n, int matrix[n][n]){
 
     int i = 0;
 
     int j = 0;
 
-    int maxsize = 0;
+    int maxcuadra = 1;
 
     for(i = 0; i < n; i += 1){
 
@@ -24,50 +24,44 @@ int findlargestsquare (int** matrix, int n){
 
             if (matrix[i][j] == 1){
 
-                int jcounter = 0;
+                int cualrededor = 1;
 
-                int xcounter = 0;
+                while ((i + cualrededor < n) && (j + cualrededor < n)) {
 
-                int cuadrado;
+                    int c;
 
-                int r;
+                    for (c = 0; c <= cualrededor; c += 1) {
 
-                int c;
-
-                for(r = i; r < n; r += 1){
-
-                    xcounter = 0;
-
-                    for(c = j; c < n; c += 1){
-
-                        if (matrix[r][c] == 1){
-
-                            xcounter += 1;
+                        if ((matrix[i + c][j + cualrededor] == 0) || (matrix[i + cualrededor][j + c] == 0)){
+                                
+                            break;
 
                         }
 
                     }
 
-                    if (xcounter == jcounter){
+                    if (c > cualrededor) {
 
-                        cuadrado = xcounter;
+                        cualrededor += 1;
 
-                    }
+                    } else {
 
-                    if (cuadrado > maxsize){
-
-                        maxsize = cuadrado;
+                        break;
 
                     }
-                
+
                 }
 
-            }
+                if (cualrededor > maxcuadra) {
 
+                    maxcuadra = cualrededor;
+                    
+                }
+            }
         }
     }
 
-    return maxsize;
+    return maxcuadra;
 
 }
 
@@ -79,9 +73,15 @@ int main(){
 
     int n;
 
-    printf("Ingrese el número de filas de la matriz nxn: ");
+    printf("Ingrese el número de filas de la matriz nxn (número menor/igual a 10): ");
 
     scanf("%d", &n);
+
+    if(n > 10){
+
+        n = 3;
+
+    }
 
     int matrix[n][n];
 
@@ -95,7 +95,7 @@ int main(){
 
     }
 
-    int largestsquaresize = findlargestsquare(matrix, n);
+    int largestsquaresize = findlargestsquare(n, matrix);
 
     printf("\nMatriz aleatoria:\n");
 
@@ -111,8 +111,9 @@ int main(){
 
     }
 
+    printf("El tamaño del cuadrado más grande de unos es de %dx%d\n", largestsquaresize, largestsquaresize);
+
     return 0;
 
-    printf("EL tamaño de cuadrado más grande de unos es %d\n"), &largestsquaresize);
 
 }
