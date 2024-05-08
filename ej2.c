@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int factorial (int n){
 
@@ -19,11 +20,11 @@ int factorial (int n){
 
 int main (int argc, char *argv[]){
 
-    char n;
+    int fact;
 
-    n = argv[1];
+    int n = atoi(argv[1]);
 
-    int fact = factorial(n);
+    fact = factorial(n);
 
     printf("%d! = %d\n", n, fact);
 
